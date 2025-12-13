@@ -7,17 +7,6 @@ import java.util.Scanner;
  */
 public class BlockChainDriver {
 
-    private static void help() {
-        System.out.println("Valid commands:");
-        System.out.println("    mine: discovers the nonce for a given transaction");
-        System.out.println("    append: appends a new block onto the end of the chain");
-        System.out.println("    remove: removes the last block from the end of the chain");
-        System.out.println("    check: checks that the block chain is valid");
-        System.out.println("    report: reports the balances of Alice and Bob");
-        System.out.println("    help: prints this list of commands");
-        System.out.println("    quit: quits the program");
-    }
-
     /**
      * The main entry point for the program.
      * @param args the command-line arguments
@@ -77,7 +66,15 @@ public class BlockChainDriver {
                     bc.printBalances();
                     break;
                 case "help":
-                    help();
+                    System.out.println("Valid commands:");
+                    System.out.println("    mine: discovers the nonce for a given transaction");
+                    System.out.println("    append: appends a new block onto the end of the chain");
+                    System.out.println("    remove: removes the last block from the end of the"
+                            + "chain");
+                    System.out.println("    check: checks that the block chain is valid");
+                    System.out.println("    report: reports the balances of Alice and Bob");
+                    System.out.println("    help: prints this list of commands");
+                    System.out.println("    quit: quits the program");
                     break;
                 case "quit":
                     break label;

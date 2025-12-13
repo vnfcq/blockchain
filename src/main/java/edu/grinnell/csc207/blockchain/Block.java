@@ -15,6 +15,14 @@ public class Block {
     private long nonce;
     private Hash hash;
 
+    /**
+     * Creates a new block from the specified parameters, performing the mining operation to
+     * discover the nonce and hash for this block given these parameters.
+     *
+     * @param num an integer
+     * @param amount an integer
+     * @param prevHash a hash
+     */
     public Block(int num, int amount, Hash prevHash) {
         this.num = num;
         this.amount = amount;
@@ -33,6 +41,16 @@ public class Block {
         }
     }
 
+    /**
+     * Creates a new block from the specified parameters, using the provided nonce and additional
+     * parameters to generate the hash for the block. Because the nonce is provided, this
+     * constructor does not need to perform the mining operation; it can compute the hash directly.
+     *
+     * @param num an integer
+     * @param amount an integer
+     * @param prevHash a hash
+     * @param nonce a long
+     */
     public Block(int num, int amount, Hash prevHash, long nonce) {
         this.num = num;
         this.amount = amount;
@@ -41,33 +59,61 @@ public class Block {
         this.hash = calculateHash(num, amount, prevHash, nonce);
     }
 
-    public int getNum(){
+    /**
+     * @return the number of this block
+     */
+    public int getNum() {
         return num;
     }
 
+    /**
+     * @return the amount transferred that is recorded in this block
+     */
     public int getAmount() {
         return amount;
     }
 
+    /**
+     * @return the nonce of this block
+     */
     public long getNonce() {
         return nonce;
     }
 
-    public Hash getPrevHash(){
+    /**
+     * @return the hash of the previous block in the blockchain
+     */
+    public Hash getPrevHash() {
         return prevHash;
     }
 
+    /**
+     * @return the hash of this block
+     */
     public Hash getHash() {
         return hash;
     }
 
+    /**
+     * @return a string representation of the block
+     */
     @Override
     public String toString() {
         String prevHashStr = (num == 0) ? "null" : prevHash.toString();
         String hashStr = hash.toString();
-        return String.format("Block %s (Amount: %s, Nonce: %s, prevHash: %s, hash: %s)", num, amount, nonce, prevHashStr, hashStr);
+        return String.format("Block %s (Amount: %s, Nonce: %s, prevHash: %s, hash: %s)", num,
+                amount, nonce, prevHashStr, hashStr);
     }
 
+    /**
+     * @param num an integer
+     * @param amount an integer
+     * @param prevHash a hash
+     * @param nonce a long
+     *
+     * @return the hash calculated from the specified parameters, using the provided nonce and
+     * additional parameters
+     */
     private static Hash calculateHash(int num, int amount, Hash prevHash, long nonce) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -84,7 +130,7 @@ public class Block {
 
             byte[] bytes = md.digest();
             return new Hash(bytes);
-        } catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             throw new AssertionError(e);
         }
     }
